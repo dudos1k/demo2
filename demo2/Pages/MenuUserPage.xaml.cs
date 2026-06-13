@@ -1,6 +1,7 @@
 ﻿using demo2.DbContext;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,9 +22,13 @@ namespace demo2.Pages
     /// </summary>
     public partial class MenuUserPage : Page
     {
+        // === Объявление на уровне КЛАССА ===
+        private ICollectionView _productsView; // <<< ВОТ ОНА
+       
         public MenuUserPage()
         {
             InitializeComponent();
+
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -31,20 +36,42 @@ namespace demo2.Pages
             try
             {
                 // Получаем продукты из вашей базы данных и передаем в ListView
-                var list = ConnectionClass.db.product.ToList();
+                var lisst = ConnectionClass.db.product.ToList();
 
-                if (list.Count == 0)
+                if (lisst.Count == 0)
                 {
                     MessageBox.Show("База данных подключена успешно, но в таблице 'product' нет записей!", "Внимание");
                 }
 
-                DataGrProduct.ItemsSource = list;
+                DataGrProduct.ItemsSource = lisst;
             }
             catch (Exception ex)
             {
                 // Если возникнет ошибка подключения к SQL Server - программа не зависнет, а покажет её текст
                 MessageBox.Show($"Ошибка загрузки данных: {ex.Message}\n\n{ex.InnerException?.Message}", "Ошибка");
             }
+
+            var list = ConnectionClass.db.product.ToList();
+            _productsView = CollectionViewSource.GetDefaultView(list);
+            DataGrProduct.ItemsSource = _productsView;
+
+        }
+
+
+        private void ComboSort_SelectionChanged(object sender, SelectionChangedEventArgs e) //сортировка
+        {
+            if (_productsView == null) return;
+
+            _productsView.SortDescriptions.Clear();
+
+            switch (ComboSort.SelectedIndex)
+            {
+                case 1: _productsView.SortDescriptions.Add(new SortDescription("Name_pr", ListSortDirection.Ascending)); break;
+                case 2: _productsView.SortDescriptions.Add(new SortDescription("Price", ListSortDirection.Ascending)); break;
+                case 3: _productsView.SortDescriptions.Add(new SortDescription("Discount", ListSortDirection.Descending)); break;
+            }
+
+            _productsView.Refresh();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

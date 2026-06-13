@@ -16,11 +16,18 @@
         </Grid.RowDefinitions>
         <!--  ВЕРХНЯЯ ПАНЕЛЬ (Строка 0)  -->
         <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="15,0">
-            <Button Content="Назад" Click="Button_Click" Width="80" Height="30" Margin="10"/>
-            <Button Content="Добавть"  Width="80" Height="30" Margin="10" Click="Button_Click_1"/>
-            <Button Content="Редактировать"  Width="90" Height="30" Margin="10" Click="Button_Click_2"/>
-            <Button Content="Удалить"  Width="80" Height="30" Margin="10" Click="Button_Click_3"/>
-            <TextBlock Width="400" HorizontalAlignment="Right" Text="{Binding users.FIO}" Foreground="Black"/>
+            <Button Content="Назад" Click="Button_Click" Width="80" Height="30" Margin="5"/>
+            <Button Content="Добавить" Width="80" Height="30" Margin="5" Click="Button_Click_1"/>
+            <Button Content="Редактировать" Width="90" Height="30" Margin="5" Click="Button_Click_2"/>
+            <Button Content="Удалить" Width="80" Height="30" Margin="5" Click="Button_Click_3"/>
+
+            <TextBlock Text="Сортировка:" VerticalAlignment="Center" Margin="20,0,5,0"/>
+            <ComboBox x:Name="ComboSort" Width="150" Height="30" SelectionChanged="ComboSort_SelectionChanged">
+                <ComboBoxItem Content="Без сортировки"/>
+                <ComboBoxItem Content="Название (А-Я)"/>
+                <ComboBoxItem Content="Цена (возр.)"/>
+                <ComboBoxItem Content="Скидка (убыв.)"/>
+            </ComboBox>
         </StackPanel>
         <!--  СПИСОК ТОВАРОВ (Строка 1)  -->
         <ListView x:Name="DataGrProduct" Grid.Row="1" Background="Transparent" BorderThickness="0" HorizontalContentAlignment="Stretch">
