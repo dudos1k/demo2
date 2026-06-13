@@ -54,12 +54,25 @@ namespace demo2.Pages
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-
+            NavigationService.Navigate(new AddProductPage());
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
+            var selectedProduct = DataGrProduct.SelectedItem as product;
 
+            if (selectedProduct == null)
+            {
+                MessageBox.Show("Сначала выберите товар из списка!");
+                return;
+            }
+
+            // Открываем страницу
+            NavigationService.Navigate(new EditProductPage(selectedProduct));
+
+            // Сбрасываем выделение после перехода, чтобы в следующий раз 
+            // кнопка сработала только после нового клика
+            DataGrProduct.SelectedItem = null;
         }
 
         private void Button_Click_3(object sender, RoutedEventArgs e)

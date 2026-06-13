@@ -18,7 +18,7 @@
         <!--  ВЕРХНЯЯ ПАНЕЛЬ (Строка 0)  -->
         <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="15,0">
             <Button Content="Назад" Click="Button_Click" Width="80" Height="30"/>
-            <TextBlock Width="400" HorizontalAlignment="Right" Text="{Binding users.FIO}" Foreground="Black"/>
+            <!--<TextBlock Width="400" HorizontalAlignment="Right" Text="{Binding users.FIO}" Foreground="Black"/>-->
         </StackPanel>
         <!--  СПИСОК ТОВАРОВ (Строка 1)  -->
         <ListView x:Name="DataGrProduct" Grid.Row="1" Background="Transparent" BorderThickness="0" HorizontalContentAlignment="Stretch">
@@ -34,7 +34,7 @@
                             </Grid.ColumnDefinitions>
                             <!--  Левая колонка (Фото)  -->
                             <Border Grid.Column="0" BorderBrush="Black" BorderThickness="1" Margin="2">
-                                <TextBlock Text="Фото" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <Image Source="/Images/62931.png" />
                             </Border>
                             <!--  Средняя колонка (Данные)  -->
                             <Border Grid.Column="1" BorderBrush="Black" BorderThickness="1" Margin="2" Padding="8,4">
